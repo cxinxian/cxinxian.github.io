@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Allen个人博客</title>
+  <subtitle>hello world~</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://cxinxian.github.io/"/>
+  <updated>2017-11-30T15:26:27.736Z</updated>
+  <id>http://cxinxian.github.io/</id>
+  
+  <author>
+    <name>Allen</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>essay-Diary-one</title>
+    <link href="http://cxinxian.github.io/2017/11/30/essay-Diary-one/"/>
+    <id>http://cxinxian.github.io/2017/11/30/essay-Diary-one/</id>
+    <published>2017-11-30T15:14:54.000Z</published>
+    <updated>2017-11-30T15:26:27.736Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="随笔日记" scheme="http://cxinxian.github.io/tags/%E9%9A%8F%E7%AC%94%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQL备忘录</title>
+    <link href="http://cxinxian.github.io/2017/11/30/SQL-Memo/"/>
+    <id>http://cxinxian.github.io/2017/11/30/SQL-Memo/</id>
+    <published>2017-11-30T15:12:27.000Z</published>
+    <updated>2017-11-30T15:26:28.678Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+      点点滴滴就是积累
+    
+    </summary>
+    
+    
+      <category term="SQL" scheme="http://cxinxian.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows下搭建基于SSH的git代码仓库</title>
+    <link href="http://cxinxian.github.io/2016/08/07/git-copssh/"/>
+    <id>http://cxinxian.github.io/2016/08/07/git-copssh/</id>
+    <published>2016-08-07T14:35:00.000Z</published>
+    <updated>2017-11-30T15:25:13.667Z</updated>
+    
+    <content type="html">&lt;p&gt;前几天因开发需要，出现代码管理问题，考虑到github上托管私有代码要收费等问题&lt;br&gt;于是就动手开始研究搭建公司内网的git仓库，已经搭建好了，现在就和大家分享下我的搭建过程以及心得体会&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;所需软件及下载和安装&quot;&gt;&lt;a href=&quot;#所需软件及下载和安装&quot; class=&quot;headerlink&quot; title=&quot;所需软件及下载和安装&quot;&gt;&lt;/a&gt;所需软件及下载和安装&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://git-for-windows.github.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;git(客户端和服务端都需要安装)&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.itefix.net/copssh&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;copssh(安装在服务端)&lt;/a&gt;&lt;br&gt;至于git的安装不作详细的赘述了,可自行百度，其中要说的主要就是要记得在系统环境变量中作配置如（图1）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/git-global-config.png&quot; alt=&quot;图1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;安装完git和配置好之后接着就着重说下copssh的安装和配置&lt;/p&gt;
+&lt;h4 id=&quot;copssh安装&quot;&gt;&lt;a href=&quot;#copssh安装&quot; class=&quot;headerlink&quot; title=&quot;copssh安装&quot;&gt;&lt;/a&gt;copssh安装&lt;/h4&gt;&lt;p&gt;下载好了copssh的安装包后直接双击安装后就弹出如（图2）的界面&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_install_1.png&quot; alt=&quot;图2&quot;&gt;&lt;/p&gt;
+&lt;p&gt;选好要按装的目录后就配置CopSSH默认的帐号密码如（图3）&lt;/p&gt;
+&lt;p&gt;（这一步会在你的电脑新增一个管理员帐号，这些参数就是管理员的用户名和密码，而且以后基本上是不会用到的）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_install_2.png&quot; alt=&quot;图3&quot;&gt;&lt;/p&gt;
+&lt;p&gt;a、copssh安装完成后在开始面板中打开copssh&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config.png&quot; alt=&quot;图4&quot;&gt;&lt;/p&gt;
+&lt;p&gt;b、新增用户&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_1.png&quot; alt=&quot;图5&quot;&gt;&lt;/p&gt;
+&lt;p&gt;c、选择用户(可以是当前系统用户，本例就选着刚安装copssh时创建的用户吧)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_2.png&quot; alt=&quot;图6&quot;&gt;&lt;/p&gt;
+&lt;p&gt;d、接着就是默认好了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_3.png&quot; alt=&quot;图7&quot;&gt;&lt;br&gt;e、公钥配置：公钥存放地点在copssh的安装路径下如：D:\copssh\ICW\home\git.ssh\，新建一个文件叫authorized_keys，用任意一个文件编辑器打开，把公钥拷贝进去即可。拷贝进去的公钥就会显示出来（图8）&lt;br&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_key.png&quot; alt=&quot;图8&quot;&gt;&lt;/p&gt;
+&lt;p&gt;还有另外一种添加公钥的方式是点击add按钮产生密钥(此出省略几张图)&lt;br&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_key_1.png&quot; alt=&quot;图9&quot;&gt;&lt;br&gt;然后你会发现在你的copssh的用户目录中发现产生一个密钥&lt;br&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_key_3.png&quot; alt=&quot;图10&quot;&gt;&lt;br&gt;此时打开.ssh目录下的authorized_keys文件你会发现多了一个公钥&lt;br&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_key_2.png&quot; alt=&quot;图11&quot;&gt;&lt;br&gt;在服务端产生了公钥之后接着就是在客户端配置私钥：&lt;br&gt;1、把服务端的私钥拷贝到客户端&lt;br&gt;2、客户端中，使用puttygen.exe加载私钥产生对应的公钥并保存&lt;/p&gt;
+&lt;p&gt;在配置完所有的信息后就可以用git base输入&lt;br&gt;&lt;code&gt;ssh git@192.168.0.0&lt;/code&gt;&lt;br&gt;git是copssh中配置的用户名，192.168.0.0是IP地址&lt;/p&gt;
+&lt;p&gt;在登录成功后，若发现git命令行不起作用可做如下图操作&lt;br&gt;&lt;img src=&quot;/assets/blogImg/git-copssh/copssh_config_git.png&quot; alt=&quot;图12&quot;&gt;&lt;br&gt;1、打开copssh安装目录下的etc文件夹中的profile文件&lt;br&gt;2、添加&lt;br&gt;&lt;code&gt;:/cygdrive/d/Git/bin:/cygdrive/d/Git/mingw64/libexec/git-core&lt;/code&gt;&lt;br&gt;(注意开始的分号)到变量PATH&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      内心一点、坚持一点、总会有收获
+    
+    </summary>
+    
+    
+      <category term="git" scheme="http://cxinxian.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo + github + Coding 搭建个人博客快速入门</title>
+    <link href="http://cxinxian.github.io/2016/06/03/hello-world/"/>
+    <id>http://cxinxian.github.io/2016/06/03/hello-world/</id>
+    <published>2016-06-02T16:13:00.000Z</published>
+    <updated>2017-11-30T15:25:19.238Z</updated>
+    
+    <content type="html">&lt;p&gt;从网上搜到大神的博客，看到觉得很好看，非常简洁，于是乎我也弄了一个个人博客，在此感谢大神门的热心分享。在我个人看来，只要引起我的兴趣的东西我都会去尝试一下，还好花的时间也不算很多，现在想想感觉弄这样的一个博客也不是很难，只要多花点心思就好了。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;关于Hexo的介绍&quot;&gt;&lt;a href=&quot;#关于Hexo的介绍&quot; class=&quot;headerlink&quot; title=&quot;关于Hexo的介绍&quot;&gt;&lt;/a&gt;关于Hexo的介绍&lt;/h3&gt;&lt;p&gt;Hexo 是一个基于Node.js的快速、简洁且高效的静态博客框架,&lt;br&gt;使用Markdown来编写文章，通过Hexo生成静态网页，最后部署到服务器上。&lt;/p&gt;
+&lt;h3 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;安装 &lt;a href=&quot;https://nodejs.org/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;node.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;安装 &lt;a href=&quot;http://git-scm.com/download&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Git&lt;/a&gt;&lt;br&gt;  作用：是把本地的Hexo生成的静态博客提交到github或者Coding上去&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;安装Hexo&quot;&gt;&lt;a href=&quot;#安装Hexo&quot; class=&quot;headerlink&quot; title=&quot;安装Hexo&quot;&gt;&lt;/a&gt;安装Hexo&lt;/h3&gt;&lt;p&gt;在安装完以上两个软件后，再你喜爱的文件夹内(如：E:\hexo)右键选择Git Bash here然后输入以下指令&lt;br&gt;&lt;code&gt;$ npm install hexo -g&lt;/code&gt;&lt;br&gt;接着便是执行初始化指令，Hexo 即会自动在目标文件夹建立网站所需要的所有文件&lt;br&gt;&lt;code&gt;$ hexo init&lt;/code&gt;&lt;br&gt;安装依赖包:&lt;br&gt;&lt;code&gt;$ npm install&lt;/code&gt;&lt;br&gt;当初始化工作完成后，便可执行下面的指令了, &lt;code&gt;hexo g&lt;/code&gt; 先是把Markdown文件生成静态网页，此时你会看到当前目录下会多出一个public文件夹;&lt;br&gt;而 &lt;code&gt;hexo s&lt;/code&gt; 则是启动本地服务器，进行文章预览调试&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo s&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;此时在浏览器输入：&lt;a href=&quot;http://localhost:4000&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://localhost:4000&lt;/a&gt; 就可以在本地预览你的个人博客了&lt;/p&gt;
+&lt;h3 id=&quot;提交把博客到Github和Coding-平台&quot;&gt;&lt;a href=&quot;#提交把博客到Github和Coding-平台&quot; class=&quot;headerlink&quot; title=&quot;提交把博客到Github和Coding 平台&quot;&gt;&lt;/a&gt;提交把博客到Github和Coding 平台&lt;/h3&gt;&lt;p&gt;（注：前提条件是在这两个平台都有账号，如果没有可以自行注册）&lt;/p&gt;
+&lt;h5 id=&quot;Github-创建Repository&quot;&gt;&lt;a href=&quot;#Github-创建Repository&quot; class=&quot;headerlink&quot; title=&quot;Github 创建Repository&quot;&gt;&lt;/a&gt;Github 创建Repository&lt;/h5&gt;&lt;p&gt;建立仓库，仓库名如【your_user_name.github.io】如图1所示&lt;br&gt;&lt;img src=&quot;/assets/blogImg/hello-world/git_repository.png&quot; alt=&quot;图1&quot;&gt;&lt;/p&gt;
+&lt;h5 id=&quot;Coding-创建Repository&quot;&gt;&lt;a href=&quot;#Coding-创建Repository&quot; class=&quot;headerlink&quot; title=&quot;Coding 创建Repository&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Coding&lt;/a&gt; 创建Repository&lt;/h5&gt;&lt;p&gt;如图2所示创建项目&lt;br&gt;&lt;img src=&quot;/assets/blogImg/hello-world/git_coding.png&quot; alt=&quot;图2&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;部署本地文件到github和Coding&quot;&gt;&lt;a href=&quot;#部署本地文件到github和Coding&quot; class=&quot;headerlink&quot; title=&quot;部署本地文件到github和Coding&quot;&gt;&lt;/a&gt;部署本地文件到github和Coding&lt;/h3&gt;&lt;p&gt;找到hexo目录下站点配置文件 _config.yml并保存&lt;br&gt;在_config.yml最下方，添加如下配置(注：hexo的配置文件中任何’:’后面都是带一个空格的)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;deploy: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;: git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  repo: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    github: git@github.com:username/username.github.io.git,master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    coding: git@git.coding.net:username/username.git,master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;如果你没有配置过ssh公钥，则可能需要配置一下:&lt;br&gt;具体参考一下&lt;a href=&quot;http://jingyan.baidu.com/article/a65957f4e91ccf24e77f9b11.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;github ssh配置&lt;/a&gt;&lt;br&gt;同理Coding的ssh配置和github差不多&lt;/p&gt;
+&lt;h3 id=&quot;部署到github和Coding上&quot;&gt;&lt;a href=&quot;#部署到github和Coding上&quot; class=&quot;headerlink&quot; title=&quot;部署到github和Coding上&quot;&gt;&lt;/a&gt;部署到github和Coding上&lt;/h3&gt;&lt;p&gt;再部署之前，先安装一下hexo-deployer-git这个模块：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-deployer-git --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;SSH公钥配置好了以后，执行以下命令部署到Github和Coding上&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hexo d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      生命在于折腾，花多点耐心，多点坚持，折腾出一个Hexo blog 总会有收获。给Hexo点赞。
+    
+    </summary>
+    
+    
+      <category term="hexo blog" scheme="http://cxinxian.github.io/tags/hexo-blog/"/>
+    
+  </entry>
+  
+</feed>
