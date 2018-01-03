@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cxinxian.github.io/"/>
-  <updated>2017-11-30T15:26:27.736Z</updated>
+  <updated>2017-12-07T14:51:49.800Z</updated>
   <id>http://cxinxian.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://cxinxian.github.io/2017/11/30/essay-Diary-one/"/>
     <id>http://cxinxian.github.io/2017/11/30/essay-Diary-one/</id>
     <published>2017-11-30T15:14:54.000Z</published>
-    <updated>2017-11-30T15:26:27.736Z</updated>
+    <updated>2017-12-07T14:51:49.800Z</updated>
     
     <content type="html"></content>
     
@@ -28,19 +28,51 @@
     
     </summary>
     
+      <category term="随笔" scheme="http://cxinxian.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
-      <category term="随笔日记" scheme="http://cxinxian.github.io/tags/%E9%9A%8F%E7%AC%94%E6%97%A5%E8%AE%B0/"/>
+    
+      <category term="随笔" scheme="http://cxinxian.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="写作" scheme="http://cxinxian.github.io/tags/%E5%86%99%E4%BD%9C/"/>
     
   </entry>
   
   <entry>
-    <title>SQL备忘录</title>
+    <title>SQL备忘录一</title>
     <link href="http://cxinxian.github.io/2017/11/30/SQL-Memo/"/>
     <id>http://cxinxian.github.io/2017/11/30/SQL-Memo/</id>
     <published>2017-11-30T15:12:27.000Z</published>
-    <updated>2017-11-30T15:26:28.678Z</updated>
+    <updated>2018-01-03T15:06:32.249Z</updated>
     
-    <content type="html"></content>
+    <content type="html">&lt;p&gt;公司开始每周一次分享会，老前辈分享了些SQL方面的知识，值得记录。&lt;br&gt;于是我又重新拾起我的hexo。&lt;br&gt;回看这时间跨度也太长了…[手动捂脸]&lt;br&gt;感觉我错过来太多精彩没有记录下来，罪过罪过，还好现在也不算太晚。。。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;一、SQL优化&quot;&gt;&lt;a href=&quot;#一、SQL优化&quot; class=&quot;headerlink&quot; title=&quot;一、SQL优化&quot;&gt;&lt;/a&gt;一、SQL优化&lt;/h3&gt;&lt;p&gt;1、对查询优化，尽量避免全表扫描，优先考虑在&lt;code&gt;where&lt;/code&gt;及&lt;code&gt;order by&lt;/code&gt; 涉及的列上建立索引&lt;/p&gt;
+&lt;p&gt;2、避免在&lt;code&gt;where&lt;/code&gt;字句中对字段进行&lt;code&gt;null、!=、&amp;lt;&amp;gt;&lt;/code&gt; 判断或者or连接条件，否则引擎放弃使用索引而进行全表扫描。&lt;br&gt;    eg:&lt;br&gt;    &lt;code&gt;select * from A where column is null or column=0&lt;/code&gt;&lt;br&gt;    改成:&lt;br&gt;    &lt;code&gt;select * from A where  isnull(column,0)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;尽量不给字段留NULL，尽可能使用NOT NULL；
+因为当字段为 char(100) 型，建立字段时，空间就固定，不管是否有值(包含NULL)，都占用100个字符空间；如果是varchar可变长字段，null不占用空间。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3、对in 和 not in 要慎用，否则也会导致全盘扫描&lt;br&gt;对于连续数据，能用between 就不用in&lt;br&gt;    eg:&lt;br&gt;    &lt;code&gt;select * from A where num in (1,2,3)&lt;/code&gt;&lt;br&gt;    改成：&lt;br&gt;    &lt;code&gt;select * from A where num between 1 and 3&lt;/code&gt;&lt;br&gt;大多时候用exists 代替 in&lt;br&gt;&lt;code&gt;select num from A where num in(select num from B)&lt;/code&gt;&lt;br&gt;改为：&lt;br&gt;&lt;code&gt;select num from A where exists(select 1 from B where num=A.num)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4、索引的创建要与应用结合考虑，建议大的OLTP表不要超过6个索引。&lt;/p&gt;
+&lt;p&gt;5、尽可能的使用索引字段作为查询条件，尤其是聚簇索引，必要时可以通过index index_name来强制指定索引   如:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;select id from t where num=@num&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//可以改为强制查询使用索引：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select id from t with(index(索引名)) where num=@num&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;在使用索引字段作为条件时，如果该索引是联合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用。。&lt;br&gt;要注意索引的维护，周期性重建索引，重新编译存储过程。&lt;/p&gt;
+&lt;h3 id=&quot;二、SQL使用规范&quot;&gt;&lt;a href=&quot;#二、SQL使用规范&quot; class=&quot;headerlink&quot; title=&quot;二、SQL使用规范&quot;&gt;&lt;/a&gt;二、SQL使用规范&lt;/h3&gt;&lt;p&gt;1、尽量不使用游标，因为效率差；&lt;br&gt;2、如果操作数据超过1w,应当改写游标&lt;/p&gt;
+&lt;h3 id=&quot;三、存储过程&quot;&gt;&lt;a href=&quot;#三、存储过程&quot; class=&quot;headerlink&quot; title=&quot;三、存储过程&quot;&gt;&lt;/a&gt;三、存储过程&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;概念：&lt;/strong&gt;&lt;br&gt;存储过程Procedure是一组为了完成特定功能的SQL语句集合，经编译后存储在数据库中，用户通过指定存储过程的名称并给出参数来执行。&lt;br&gt;存储过程中可以包含逻辑控制语句和数据操纵语句，它可以接受参数、输出参数、返回单个或多个结果集以及返回值。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;作用及优点：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;增强数据的完整性&lt;/li&gt;
+&lt;li&gt;复杂业务规则和约束的一致实现&lt;/li&gt;
+&lt;li&gt;模块化设计&lt;/li&gt;
+&lt;li&gt;可维护性&lt;/li&gt;
+&lt;li&gt;降低网络通讯量&lt;/li&gt;
+&lt;li&gt;提高执行效率&lt;/li&gt;
+&lt;li&gt;较强的安全性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于存储过程在创建时即在数据库服务器上进行了编译并存储在数据库中，所以存储过程运行要比单个的SQL语句块要快。同时由于在调用时只需用提供存储过程名和必要的参数信息，所以在一定程度上也可以减少网络流量、简单网络负担。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;具体使用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例子：更新用户密码&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;create proc update_user_pwd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@usr varchar(50),				 --输入变量，接收用户名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@old_pwd varchar(500),			--输入变量，接收旧密码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@new_pwd varchar(500),			--输入变量，接收新密码&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	@res int Output				   --输出变量，输出结果标志 0：成功； -1：用户名错误； -2：旧密码错误&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;As&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if exists(select * from tb_user where username = @usr)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	if exists(select * from tb_user where username = @usr and passworld = @pwd)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		begin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			update tb_user set passworld = @new_pwd where username = @usr&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			set @res = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		select @res = -2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;else&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	select @res = -1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;return @res&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;实现分页查询：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;--使用row_number函数分页&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if OBJECT_ID (N&amp;apos;PROC_SELECT_BY_PAGE&amp;apos;, N&amp;apos;P&amp;apos;) IS NOT NULL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    drop procedure PROC_SELECT_BY_PAGE;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gO&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;create procedure PROC_SELECT_BY_PAGE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @startIndex int,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @endIndex int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;as&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    select  * from (select id,name,age,sex,row_number() over(order by id desc) as rownumber from tb_user) as Temp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    where Temp.rownumber between @startIndex AND @endIndex&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;go&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;--使用top 分页查询&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;使用row_number函数分页&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if OBJECT_ID (N&amp;apos;PROC_SELECT_BY_PAGE_top&amp;apos;, N&amp;apos;P&amp;apos;) IS NOT NULL&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    drop procedure PROC_SELECT_BY_PAGE_top;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gO&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;create procedure PROC_SELECT_BY_PAGE_top&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @pageIndex int,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    @pageSize int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;as&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    select top(pageSize) * from tb_user where id &amp;gt;= (select max(id) from (select top(pageSize*(pageIndex-1)+1 from tb_user) id from tb_user order by id)as Temp)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;go&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
     
     <summary type="html">
     
@@ -58,7 +90,7 @@
     <link href="http://cxinxian.github.io/2016/08/07/git-copssh/"/>
     <id>http://cxinxian.github.io/2016/08/07/git-copssh/</id>
     <published>2016-08-07T14:35:00.000Z</published>
-    <updated>2017-11-30T15:25:13.667Z</updated>
+    <updated>2017-12-04T14:07:35.553Z</updated>
     
     <content type="html">&lt;p&gt;前几天因开发需要，出现代码管理问题，考虑到github上托管私有代码要收费等问题&lt;br&gt;于是就动手开始研究搭建公司内网的git仓库，已经搭建好了，现在就和大家分享下我的搭建过程以及心得体会&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -99,21 +131,21 @@
     <link href="http://cxinxian.github.io/2016/06/03/hello-world/"/>
     <id>http://cxinxian.github.io/2016/06/03/hello-world/</id>
     <published>2016-06-02T16:13:00.000Z</published>
-    <updated>2017-11-30T15:25:19.238Z</updated>
+    <updated>2017-12-04T14:29:14.038Z</updated>
     
     <content type="html">&lt;p&gt;从网上搜到大神的博客，看到觉得很好看，非常简洁，于是乎我也弄了一个个人博客，在此感谢大神门的热心分享。在我个人看来，只要引起我的兴趣的东西我都会去尝试一下，还好花的时间也不算很多，现在想想感觉弄这样的一个博客也不是很难，只要多花点心思就好了。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h3 id=&quot;关于Hexo的介绍&quot;&gt;&lt;a href=&quot;#关于Hexo的介绍&quot; class=&quot;headerlink&quot; title=&quot;关于Hexo的介绍&quot;&gt;&lt;/a&gt;关于Hexo的介绍&lt;/h3&gt;&lt;p&gt;Hexo 是一个基于Node.js的快速、简洁且高效的静态博客框架,&lt;br&gt;使用Markdown来编写文章，通过Hexo生成静态网页，最后部署到服务器上。&lt;/p&gt;
-&lt;h3 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;ul&gt;
+&lt;h3 id=&quot;一、关于Hexo的介绍&quot;&gt;&lt;a href=&quot;#一、关于Hexo的介绍&quot; class=&quot;headerlink&quot; title=&quot;一、关于Hexo的介绍&quot;&gt;&lt;/a&gt;一、关于Hexo的介绍&lt;/h3&gt;&lt;p&gt;Hexo 是一个基于Node.js的快速、简洁且高效的静态博客框架,&lt;br&gt;使用Markdown来编写文章，通过Hexo生成静态网页，最后部署到服务器上。&lt;/p&gt;
+&lt;h3 id=&quot;二、环境准备&quot;&gt;&lt;a href=&quot;#二、环境准备&quot; class=&quot;headerlink&quot; title=&quot;二、环境准备&quot;&gt;&lt;/a&gt;二、环境准备&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;安装 &lt;a href=&quot;https://nodejs.org/en/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;node.js&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;安装 &lt;a href=&quot;http://git-scm.com/download&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Git&lt;/a&gt;&lt;br&gt;  作用：是把本地的Hexo生成的静态博客提交到github或者Coding上去&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&quot;安装Hexo&quot;&gt;&lt;a href=&quot;#安装Hexo&quot; class=&quot;headerlink&quot; title=&quot;安装Hexo&quot;&gt;&lt;/a&gt;安装Hexo&lt;/h3&gt;&lt;p&gt;在安装完以上两个软件后，再你喜爱的文件夹内(如：E:\hexo)右键选择Git Bash here然后输入以下指令&lt;br&gt;&lt;code&gt;$ npm install hexo -g&lt;/code&gt;&lt;br&gt;接着便是执行初始化指令，Hexo 即会自动在目标文件夹建立网站所需要的所有文件&lt;br&gt;&lt;code&gt;$ hexo init&lt;/code&gt;&lt;br&gt;安装依赖包:&lt;br&gt;&lt;code&gt;$ npm install&lt;/code&gt;&lt;br&gt;当初始化工作完成后，便可执行下面的指令了, &lt;code&gt;hexo g&lt;/code&gt; 先是把Markdown文件生成静态网页，此时你会看到当前目录下会多出一个public文件夹;&lt;br&gt;而 &lt;code&gt;hexo s&lt;/code&gt; 则是启动本地服务器，进行文章预览调试&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo s&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;三、安装Hexo&quot;&gt;&lt;a href=&quot;#三、安装Hexo&quot; class=&quot;headerlink&quot; title=&quot;三、安装Hexo&quot;&gt;&lt;/a&gt;三、安装Hexo&lt;/h3&gt;&lt;p&gt;在安装完以上两个软件后，再你喜爱的文件夹内(如：E:\hexo)右键选择Git Bash here然后输入以下指令&lt;br&gt;&lt;code&gt;$ npm install hexo -g&lt;/code&gt;&lt;br&gt;接着便是执行初始化指令，Hexo 即会自动在目标文件夹建立网站所需要的所有文件&lt;br&gt;&lt;code&gt;$ hexo init&lt;/code&gt;&lt;br&gt;安装依赖包:&lt;br&gt;&lt;code&gt;$ npm install&lt;/code&gt;&lt;br&gt;当初始化工作完成后，便可执行下面的指令了, &lt;code&gt;hexo g&lt;/code&gt; 先是把Markdown文件生成静态网页，此时你会看到当前目录下会多出一个public文件夹;&lt;br&gt;而 &lt;code&gt;hexo s&lt;/code&gt; 则是启动本地服务器，进行文章预览调试&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ hexo s&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;此时在浏览器输入：&lt;a href=&quot;http://localhost:4000&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://localhost:4000&lt;/a&gt; 就可以在本地预览你的个人博客了&lt;/p&gt;
-&lt;h3 id=&quot;提交把博客到Github和Coding-平台&quot;&gt;&lt;a href=&quot;#提交把博客到Github和Coding-平台&quot; class=&quot;headerlink&quot; title=&quot;提交把博客到Github和Coding 平台&quot;&gt;&lt;/a&gt;提交把博客到Github和Coding 平台&lt;/h3&gt;&lt;p&gt;（注：前提条件是在这两个平台都有账号，如果没有可以自行注册）&lt;/p&gt;
+&lt;h3 id=&quot;四、提交把博客到Github和Coding-平台&quot;&gt;&lt;a href=&quot;#四、提交把博客到Github和Coding-平台&quot; class=&quot;headerlink&quot; title=&quot;四、提交把博客到Github和Coding 平台&quot;&gt;&lt;/a&gt;四、提交把博客到Github和Coding 平台&lt;/h3&gt;&lt;p&gt;（注：前提条件是在这两个平台都有账号，如果没有可以自行注册）&lt;/p&gt;
 &lt;h5 id=&quot;Github-创建Repository&quot;&gt;&lt;a href=&quot;#Github-创建Repository&quot; class=&quot;headerlink&quot; title=&quot;Github 创建Repository&quot;&gt;&lt;/a&gt;Github 创建Repository&lt;/h5&gt;&lt;p&gt;建立仓库，仓库名如【your_user_name.github.io】如图1所示&lt;br&gt;&lt;img src=&quot;/assets/blogImg/hello-world/git_repository.png&quot; alt=&quot;图1&quot;&gt;&lt;/p&gt;
 &lt;h5 id=&quot;Coding-创建Repository&quot;&gt;&lt;a href=&quot;#Coding-创建Repository&quot; class=&quot;headerlink&quot; title=&quot;Coding 创建Repository&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://coding.net/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Coding&lt;/a&gt; 创建Repository&lt;/h5&gt;&lt;p&gt;如图2所示创建项目&lt;br&gt;&lt;img src=&quot;/assets/blogImg/hello-world/git_coding.png&quot; alt=&quot;图2&quot;&gt;&lt;/p&gt;
-&lt;h3 id=&quot;部署本地文件到github和Coding&quot;&gt;&lt;a href=&quot;#部署本地文件到github和Coding&quot; class=&quot;headerlink&quot; title=&quot;部署本地文件到github和Coding&quot;&gt;&lt;/a&gt;部署本地文件到github和Coding&lt;/h3&gt;&lt;p&gt;找到hexo目录下站点配置文件 _config.yml并保存&lt;br&gt;在_config.yml最下方，添加如下配置(注：hexo的配置文件中任何’:’后面都是带一个空格的)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;deploy: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;: git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  repo: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    github: git@github.com:username/username.github.io.git,master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    coding: git@git.coding.net:username/username.git,master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;五、部署本地文件到github和Coding&quot;&gt;&lt;a href=&quot;#五、部署本地文件到github和Coding&quot; class=&quot;headerlink&quot; title=&quot;五、部署本地文件到github和Coding&quot;&gt;&lt;/a&gt;五、部署本地文件到github和Coding&lt;/h3&gt;&lt;p&gt;找到hexo目录下站点配置文件 _config.yml并保存&lt;br&gt;在_config.yml最下方，添加如下配置(注：hexo的配置文件中任何’:’后面都是带一个空格的)&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;deploy: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;type&lt;/span&gt;: git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  repo: &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    github: git@github.com:username/username.github.io.git,master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    coding: git@git.coding.net:username/username.git,master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;如果你没有配置过ssh公钥，则可能需要配置一下:&lt;br&gt;具体参考一下&lt;a href=&quot;http://jingyan.baidu.com/article/a65957f4e91ccf24e77f9b11.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;github ssh配置&lt;/a&gt;&lt;br&gt;同理Coding的ssh配置和github差不多&lt;/p&gt;
 &lt;h3 id=&quot;部署到github和Coding上&quot;&gt;&lt;a href=&quot;#部署到github和Coding上&quot; class=&quot;headerlink&quot; title=&quot;部署到github和Coding上&quot;&gt;&lt;/a&gt;部署到github和Coding上&lt;/h3&gt;&lt;p&gt;再部署之前，先安装一下hexo-deployer-git这个模块：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm install hexo-deployer-git --save&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;SSH公钥配置好了以后，执行以下命令部署到Github和Coding上&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;hexo g&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hexo d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
