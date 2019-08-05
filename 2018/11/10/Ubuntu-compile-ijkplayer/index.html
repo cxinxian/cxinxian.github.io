@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://cxinxian.github.io">
-  <title>Archives: 2017/12 | Allen个人博客</title>
+  <title>Ubuntu虚拟机编译ijkplayer | Allen个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="hello,every body!~">
-<meta name="keywords" content="开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,java,android,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Allen个人博客">
-<meta property="og:url" content="http://cxinxian.github.io/archives/2017/12/index.html">
+  <meta name="description" content="前言近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;amp;iOS。虽然Vitamio也很强大，但只是面对个人开放，就pass好了，接下来就直">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu虚拟机编译ijkplayer">
+<meta property="og:url" content="http://cxinxian.github.io/2018/11/10/Ubuntu-compile-ijkplayer/index.html">
 <meta property="og:site_name" content="Allen个人博客">
-<meta property="og:description" content="hello,every body!~">
+<meta property="og:description" content="前言近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;amp;iOS。虽然Vitamio也很强大，但只是面对个人开放，就pass好了，接下来就直接进入主题">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cxinxian.github.io/assets/blogImg/Ubuntu-compile-ijkplayer/java-version.png">
+<meta property="og:image" content="http://cxinxian.github.io/assets/blogImg/Ubuntu-compile-ijkplayer/ndk-build-v.png">
+<meta property="og:image" content="http://cxinxian.github.io/assets/blogImg/Ubuntu-compile-ijkplayer/android-sdkmrg.png">
+<meta property="og:updated_time" content="2018-11-11T10:42:54.772Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Allen个人博客">
-<meta name="twitter:description" content="hello,every body!~">
+<meta name="twitter:title" content="Ubuntu虚拟机编译ijkplayer">
+<meta name="twitter:description" content="前言近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;amp;iOS。虽然Vitamio也很强大，但只是面对个人开放，就pass好了，接下来就直接进入主题">
+<meta name="twitter:image" content="http://cxinxian.github.io/assets/blogImg/Ubuntu-compile-ijkplayer/java-version.png">
   
     <link rel="alternative" href="/atom.xml" title="Allen个人博客" type="application/atom+xml">
   
@@ -152,64 +157,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Ubuntu-compile-ijkplayer" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/20/essay-Diary-one/" class="archive-article-date">
-  	<time datetime="2017-12-20T05:14:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/20/essay-Diary-one/">2017书单</a>
+    <h1 class="article-title" itemprop="name">
+      Ubuntu虚拟机编译ijkplayer
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/11/10/Ubuntu-compile-ijkplayer/" class="archive-article-date">
+  	<time datetime="2018-11-10T12:21:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，<br>支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;iOS。<br>虽然Vitamio也很强大，但只是面对个人开放，就pass<br>好了，接下来就直接进入主题</p>
+<a id="more"></a>
+<h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><p>Ubuntu  18.04.1<br>至于怎么在虚拟机中安装Ubuntu就不说了，百度有一堆教程[手动捂脸]</p>
+<h4 id="1-下载SDK、jdk、ndk-并配置环境"><a href="#1-下载SDK、jdk、ndk-并配置环境" class="headerlink" title="1.下载SDK、jdk、ndk 并配置环境"></a>1.下载SDK、jdk、ndk 并配置环境</h4><p>jdk 1.8.0_191<br>ndk r14b</p>
+<p>用vim 打开profile文件配置环境变量<br><code>vim /etc/profile</code><br>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#java</span><br><span class="line">export JAVA_HOME=/usr/devkit/java/jdk1.8.0_191</span><br><span class="line">export JRE_HOME=/usr/devkit/java/jdk1.8.0_191/jre</span><br><span class="line">export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</span><br><span class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin</span><br><span class="line"></span><br><span class="line">#ndk</span><br><span class="line">export ANDROID_NDK=/usr/devkit/ndk/android-ndk-r14b</span><br><span class="line">export PATH=$ANDROID_NDK:$PATH</span><br><span class="line"></span><br><span class="line">#sdk</span><br><span class="line">export ANDROID_SDK=/usr/devkit/sdk/android-sdk-linux</span><br><span class="line">export PATH=$&#123;PATH&#125;:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools</span><br></pre></td></tr></table></figure></p>
+<p>保存文件并退出然后执行下面的命令让配置生效<br><code>source /etc/profile</code></p>
+<hr>
+<p>测试环境是否已经配置好，执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure></p>
+<p><img src="/assets/blogImg/Ubuntu-compile-ijkplayer/java-version.png" alt="图1"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndk-build -v</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/blogImg/Ubuntu-compile-ijkplayer/ndk-build-v.png" alt="图2"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/blogImg/Ubuntu-compile-ijkplayer/android-sdkmrg.png" alt="图3"></p>
+<p>如果git 和yasm没有安装的话需要执行下面的命令进行安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git</span><br><span class="line">apt-get install yasm</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-下载ijkplayer源码"><a href="#2-下载ijkplayer源码" class="headerlink" title="2.下载ijkplayer源码"></a>2.下载ijkplayer源码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android</span><br></pre></td></tr></table></figure>
+<h4 id="3-初始化android并开始编译ijkplayer-Android"><a href="#3-初始化android并开始编译ijkplayer-Android" class="headerlink" title="3.初始化android并开始编译ijkplayer-Android"></a>3.初始化android并开始编译ijkplayer-Android</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ijkplayer-android</span><br><span class="line">./init-android.sh</span><br></pre></td></tr></table></figure>
+<p>初始化过程会耗费不少时间，需要从网上拉取代码<br>此外如果视频播放需要支持Https协议，需要执行如下命令<br><code>./init-android-openssl.sh</code></p>
+<hr>
+<h4 id="4-配置模式"><a href="#4-配置模式" class="headerlink" title="4.配置模式"></a>4.配置模式</h4><p>在 ijkplayer-android/config 目录下官方提供了三个编译FFmpeg的配置文件模板给我们使用：</p>
+<ul>
+<li>module-default.sh：默认，最后生成的文件同时支持ts格式的视频,例如一些电视台的m3u8 格式</li>
+<li>module-lite-hevc.sh：相对于module-lite.sh多了hevc功能</li>
+<li>module-lite.sh：如果你更喜欢较小的二进制大小的编解码器/格式，不支持ts格式的视频</li>
+</ul>
+<p>如果需要支持直播流(rstp\rtp）、rmvb支持等等，可在模板文件中添加相应的配置，并替换原有的module.sh<br>下面就module-lite.sh 文件添加相关配置进行演示<br>打开该文件，找到<br><code>export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --disable-protocol=rtp&quot;</code><br>修改为以下，就可以打开rtsp协议了。<br><code>export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-protocol=rtp&quot;</code><br>然后继续添加以下一行，打开rtsp音视频分离器<br><code>export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=rtsp&quot;&quot;</code><br>然后执行以下命令，连接配置文件</p>
+<ul>
+<li>为避免出现缺少ID为8的codec的错误*，还需要添加下面代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-decoder=mjpeg&quot;</span><br><span class="line">export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=mjpeg&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>添加mkv、rmvb支持<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-muxer=matroska</span><br><span class="line">export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-muxer=matroska_audio</span><br><span class="line">export COMMON_FF_CFG_FLAGS=&quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=matroska</span><br></pre></td></tr></table></figure></p>
+<p>然后通过如下命令重新产生module.sh文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rm module.sh</span><br><span class="line">ln -s module-lite.sh module.sh</span><br><span class="line">source module.sh</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="5-开始编译"><a href="#5-开始编译" class="headerlink" title="5.开始编译"></a>5.开始编译</h4><p>编译之前先执行下命令清除一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd android/contrib</span><br><span class="line">./compile-openssl.sh clean</span><br><span class="line">./compile-ffmpeg.sh clean</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>编译openssl<br><code>./compile-openssl.sh all</code></li>
+<li>编译ffmpeg<br><code>./compile-ffmpeg.sh all</code></li>
+<li>编译ijkplayer<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ../</span><br><span class="line">./compile-ijk.sh all</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果在编译过程中出现类似于以下错误,很有可能是没有安装python,<br>可通过<code>apt install python</code> 命令来安装就行了，接着在编译就OK了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">build on Linux x86_64</span><br><span class="line">ANDROID_NDK=/usr/devkit/ndk/android-ndk-r14b</span><br><span class="line">IJK_NDK_REL=14.1.3816874</span><br><span class="line">NDKr14.1.3816874 detected</span><br><span class="line">HOST_OS=linux</span><br><span class="line">HOST_EXE=</span><br><span class="line">HOST_ARCH=x86_64</span><br><span class="line">HOST_TAG=linux-x86_64</span><br><span class="line">HOST_NUM_CPUS=2</span><br><span class="line">BUILD_NUM_CPUS=4</span><br><span class="line">Auto-config: --arch=arm</span><br><span class="line">ERROR: Failed to create toolchain.</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">写作</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://cxinxian.github.io/2018/11/10/Ubuntu-compile-ijkplayer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/08/05/sqlite数据库升级/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sqlite数据库升级</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -232,8 +379,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

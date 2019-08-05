@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cxinxian.github.io/"/>
-  <updated>2018-01-04T15:18:55.507Z</updated>
+  <updated>2018-11-11T10:42:54.772Z</updated>
   <id>http://cxinxian.github.io/</id>
   
   <author>
@@ -16,14 +16,93 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Ubuntu虚拟机编译ijkplayer</title>
+    <link href="http://cxinxian.github.io/2018/11/10/Ubuntu-compile-ijkplayer/"/>
+    <id>http://cxinxian.github.io/2018/11/10/Ubuntu-compile-ijkplayer/</id>
+    <published>2018-11-10T12:21:29.000Z</published>
+    <updated>2018-11-11T10:42:54.772Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，&lt;br&gt;支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;amp;iOS。&lt;br&gt;虽然Vitamio也很强大，但只是面对个人开放，就pass&lt;br&gt;好了，接下来就直接进入主题&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h3&gt;&lt;p&gt;Ubuntu  18.04.1&lt;br&gt;至于怎么在虚拟机中安装Ubuntu就不说了，百度有一堆教程[手动捂脸]&lt;/p&gt;
+&lt;h4 id=&quot;1-下载SDK、jdk、ndk-并配置环境&quot;&gt;&lt;a href=&quot;#1-下载SDK、jdk、ndk-并配置环境&quot; class=&quot;headerlink&quot; title=&quot;1.下载SDK、jdk、ndk 并配置环境&quot;&gt;&lt;/a&gt;1.下载SDK、jdk、ndk 并配置环境&lt;/h4&gt;&lt;p&gt;jdk 1.8.0_191&lt;br&gt;ndk r14b&lt;/p&gt;
+&lt;p&gt;用vim 打开profile文件配置环境变量&lt;br&gt;&lt;code&gt;vim /etc/profile&lt;/code&gt;&lt;br&gt;如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#java&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export JAVA_HOME=/usr/devkit/java/jdk1.8.0_191&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export JRE_HOME=/usr/devkit/java/jdk1.8.0_191/jre&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#ndk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export ANDROID_NDK=/usr/devkit/ndk/android-ndk-r14b&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH=$ANDROID_NDK:$PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export ANDROID_SDK=/usr/devkit/sdk/android-sdk-linux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH=$&amp;#123;PATH&amp;#125;:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;保存文件并退出然后执行下面的命令让配置生效&lt;br&gt;&lt;code&gt;source /etc/profile&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;测试环境是否已经配置好，执行如下命令&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;java -version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/Ubuntu-compile-ijkplayer/java-version.png&quot; alt=&quot;图1&quot;&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ndk-build -v&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/Ubuntu-compile-ijkplayer/ndk-build-v.png&quot; alt=&quot;图2&quot;&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;android&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/Ubuntu-compile-ijkplayer/android-sdkmrg.png&quot; alt=&quot;图3&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如果git 和yasm没有安装的话需要执行下面的命令进行安装&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;apt-get install git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get install yasm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h4 id=&quot;2-下载ijkplayer源码&quot;&gt;&lt;a href=&quot;#2-下载ijkplayer源码&quot; class=&quot;headerlink&quot; title=&quot;2.下载ijkplayer源码&quot;&gt;&lt;/a&gt;2.下载ijkplayer源码&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;3-初始化android并开始编译ijkplayer-Android&quot;&gt;&lt;a href=&quot;#3-初始化android并开始编译ijkplayer-Android&quot; class=&quot;headerlink&quot; title=&quot;3.初始化android并开始编译ijkplayer-Android&quot;&gt;&lt;/a&gt;3.初始化android并开始编译ijkplayer-Android&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd ijkplayer-android&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./init-android.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;初始化过程会耗费不少时间，需要从网上拉取代码&lt;br&gt;此外如果视频播放需要支持Https协议，需要执行如下命令&lt;br&gt;&lt;code&gt;./init-android-openssl.sh&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;4-配置模式&quot;&gt;&lt;a href=&quot;#4-配置模式&quot; class=&quot;headerlink&quot; title=&quot;4.配置模式&quot;&gt;&lt;/a&gt;4.配置模式&lt;/h4&gt;&lt;p&gt;在 ijkplayer-android/config 目录下官方提供了三个编译FFmpeg的配置文件模板给我们使用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;module-default.sh：默认，最后生成的文件同时支持ts格式的视频,例如一些电视台的m3u8 格式&lt;/li&gt;
+&lt;li&gt;module-lite-hevc.sh：相对于module-lite.sh多了hevc功能&lt;/li&gt;
+&lt;li&gt;module-lite.sh：如果你更喜欢较小的二进制大小的编解码器/格式，不支持ts格式的视频&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果需要支持直播流(rstp\rtp）、rmvb支持等等，可在模板文件中添加相应的配置，并替换原有的module.sh&lt;br&gt;下面就module-lite.sh 文件添加相关配置进行演示&lt;br&gt;打开该文件，找到&lt;br&gt;&lt;code&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --disable-protocol=rtp&amp;quot;&lt;/code&gt;&lt;br&gt;修改为以下，就可以打开rtsp协议了。&lt;br&gt;&lt;code&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-protocol=rtp&amp;quot;&lt;/code&gt;&lt;br&gt;然后继续添加以下一行，打开rtsp音视频分离器&lt;br&gt;&lt;code&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=rtsp&amp;quot;&amp;quot;&lt;/code&gt;&lt;br&gt;然后执行以下命令，连接配置文件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为避免出现缺少ID为8的codec的错误*，还需要添加下面代码&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-decoder=mjpeg&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=mjpeg&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;添加mkv、rmvb支持&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-muxer=matroska&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-muxer=matroska_audio&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export COMMON_FF_CFG_FLAGS=&amp;quot;$COMMON_FF_CFG_FLAGS --enable-demuxer=matroska&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;然后通过如下命令重新产生module.sh文件&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rm module.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s module-lite.sh module.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;source module.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;5-开始编译&quot;&gt;&lt;a href=&quot;#5-开始编译&quot; class=&quot;headerlink&quot; title=&quot;5.开始编译&quot;&gt;&lt;/a&gt;5.开始编译&lt;/h4&gt;&lt;p&gt;编译之前先执行下命令清除一下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd android/contrib&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./compile-openssl.sh clean&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./compile-ffmpeg.sh clean&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译openssl&lt;br&gt;&lt;code&gt;./compile-openssl.sh all&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;编译ffmpeg&lt;br&gt;&lt;code&gt;./compile-ffmpeg.sh all&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;编译ijkplayer&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd ../&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./compile-ijk.sh all&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果在编译过程中出现类似于以下错误,很有可能是没有安装python,&lt;br&gt;可通过&lt;code&gt;apt install python&lt;/code&gt; 命令来安装就行了，接着在编译就OK了&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;build on Linux x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ANDROID_NDK=/usr/devkit/ndk/android-ndk-r14b&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;IJK_NDK_REL=14.1.3816874&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NDKr14.1.3816874 detected&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOST_OS=linux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOST_EXE=&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOST_ARCH=x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOST_TAG=linux-x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;HOST_NUM_CPUS=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;BUILD_NUM_CPUS=4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Auto-config: --arch=arm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ERROR: Failed to create toolchain.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;近段时间项目开发中需要视频播放器，于是开始搜索相关资料了解到ijkplayer是一个很不错的开源的轻量级视频播放器，&lt;br&gt;支持播放本地网络视频，也支持流媒体播放。是Bilibili基于ffmpeg开发的，支持Android&amp;amp;iOS。&lt;br&gt;虽然Vitamio也很强大，但只是面对个人开放，就pass&lt;br&gt;好了，接下来就直接进入主题&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://cxinxian.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sqlite数据库升级</title>
+    <link href="http://cxinxian.github.io/2018/08/05/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/"/>
+    <id>http://cxinxian.github.io/2018/08/05/sqlite数据库升级/</id>
+    <published>2018-08-05T15:35:02.000Z</published>
+    <updated>2018-08-05T15:35:24.844Z</updated>
+    
+    <content type="html"></content>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://cxinxian.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2017书单</title>
     <link href="http://cxinxian.github.io/2017/12/20/essay-Diary-one/"/>
     <id>http://cxinxian.github.io/2017/12/20/essay-Diary-one/</id>
     <published>2017-12-20T05:14:54.000Z</published>
-    <updated>2018-01-04T15:18:55.507Z</updated>
+    <updated>2018-08-05T10:06:37.630Z</updated>
     
     <content type="html">&lt;p&gt;回首2017，很庆幸自己能够利用一些碎片时间来读一下书，也感激自己没有懈怠。&lt;/p&gt;
-&lt;p&gt;– 读书的意义是为了&lt;br&gt;看到更大的世界&lt;br&gt;&lt;img src=&quot;/assets/blogImg/essay-Diary-one/mmexport1515078864559.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;– 读书的意义是为了&lt;br&gt;看到更大的世界&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;明朝那些事儿(done)&lt;/li&gt;
 &lt;li&gt;半小时漫画中国史(done)&lt;/li&gt;
@@ -36,16 +115,15 @@
 &lt;li&gt;大话设计模式(pending)&lt;/li&gt;
 &lt;li&gt;数据结构与算法分析Java语言描述(pending)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/blogImg/essay-Diary-one/mmexport1515078864559.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 </content>
     
     <summary type="html">
     
       &lt;p&gt;回首2017，很庆幸自己能够利用一些碎片时间来读一下书，也感激自己没有懈怠。&lt;/p&gt;
-&lt;p&gt;– 读书的意义是为了&lt;br&gt;看到更大的世界&lt;br&gt;&lt;img src=&quot;/assets/blogImg/essay-Diary-one/mmexport1515078864559.jp
+&lt;p&gt;– 读书的意义是为了&lt;br&gt;看到更大的世界&lt;/p&gt;
     
     </summary>
-    
-      <category term="随笔" scheme="http://cxinxian.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
       <category term="随笔" scheme="http://cxinxian.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
@@ -107,7 +185,7 @@
     <link href="http://cxinxian.github.io/2016/08/07/git-copssh/"/>
     <id>http://cxinxian.github.io/2016/08/07/git-copssh/</id>
     <published>2016-08-07T14:35:00.000Z</published>
-    <updated>2017-12-04T14:07:35.553Z</updated>
+    <updated>2018-11-10T12:26:33.660Z</updated>
     
     <content type="html">&lt;p&gt;前几天因开发需要，出现代码管理问题，考虑到github上托管私有代码要收费等问题&lt;br&gt;于是就动手开始研究搭建公司内网的git仓库，已经搭建好了，现在就和大家分享下我的搭建过程以及心得体会&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -134,7 +212,7 @@
     
     <summary type="html">
     
-      内心一点、坚持一点、总会有收获
+      耐心一点、坚持一点、总会有收获
     
     </summary>
     
