@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Allen个人博客">
 <meta property="og:description" content="在本篇文章中主要是记录在android 开发中需要对sqlite数据库进行更新的一些实践与总结。希望在往后的开发中遇到同样的问题时能够帮助自己快速的回想起来。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://cxinxian.github.io/2018/08/05/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg">
+<meta property="og:image" content="http://cxinxian.github.io/assets/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg">
 <meta property="article:published_time" content="2018-08-05T15:35:02.000Z">
 <meta property="article:modified_time" content="2021-06-05T00:49:32.105Z">
 <meta property="article:author" content="Allen">
 <meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cxinxian.github.io/2018/08/05/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg">
+<meta name="twitter:image" content="http://cxinxian.github.io/assets/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Allen个人博客" type="application/atom+xml">
   
@@ -186,7 +186,7 @@
 </li>
 </ul>
 <p>通过图形示例，大致上，数据库的升级大概有以下几种情况， 有一个版本一个版本接着升级，也有跨版本升级的。</p>
-<p><img src="/2018/08/05/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg" alt="pic1"></p>
+<p><img src="/assets/blogImg/sqlite%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7/pic1.jpg" alt="pic1"></p>
 <p>通常地，我们操作sqlite 数据库都需要继承 <strong>SQLiteOpenHelper</strong> 类并实现<code>onCreate、onUpgrade</code>方法，它是sqlite 数据库的管理操作工具类，主要作用有 打开或者关闭sqlite 数据库、创建、增、删、改、版本更新。</p>
 <p>实际开发中，数据库的创建是通过在子类构造方法调用父类的构造实现。示例代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 构造器.</span></span><br><span class="line"><span class="comment"> * 参数1：context 上下文</span></span><br><span class="line"><span class="comment"> * 参数2：数据库名称</span></span><br><span class="line"><span class="comment"> * 参数3：CursorFactory 游标工厂，主要是为了创建 cursor，默认为空</span></span><br><span class="line"><span class="comment"> * 参数4：version 当前数据库版本</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> context the context</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyDbHelper</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">	<span class="built_in">super</span>(context, AppConstants.DBNAME, <span class="literal">null</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="comment">//第一次创建数据库的时候回调该方法</span></span><br><span class="line">	<span class="comment">//当使用getReadableDatabase()方法获取数据库实例的时候, 如果数据库不存在, 就会调用这个方法</span></span><br><span class="line">    db = <span class="built_in">this</span>.getWritableDatabase();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -462,11 +462,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -482,11 +482,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo blog</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo blog</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">

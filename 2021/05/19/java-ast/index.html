@@ -15,13 +15,13 @@
 <meta property="og:site_name" content="Allen个人博客">
 <meta property="og:description" content="在上一篇文章java自定义编译时注解器中讲述到了有关自定义注解器的使用，接来在这里将会讲述的是如何通过语法树表示所想要的代码结构，并通过编译处理器生成相应的字节码。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://cxinxian.github.io/2021/05/19/java-ast/blogImg/java-ast/java-ast-pic1.png">
+<meta property="og:image" content="http://cxinxian.github.io/assets/blogImg/java-ast/java-ast-pic1.png">
 <meta property="article:published_time" content="2021-05-19T08:31:45.000Z">
 <meta property="article:modified_time" content="2021-06-05T00:47:55.454Z">
 <meta property="article:author" content="Allen">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cxinxian.github.io/2021/05/19/java-ast/blogImg/java-ast/java-ast-pic1.png">
+<meta name="twitter:image" content="http://cxinxian.github.io/assets/blogImg/java-ast/java-ast-pic1.png">
   
     <link rel="alternative" href="/atom.xml" title="Allen个人博客" type="application/atom+xml">
   
@@ -185,7 +185,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">String</span> <span class="variable">var</span> <span class="operator">=</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.print(<span class="keyword">var</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>对应的语法树如下图：</p>
-<p><img src="/2021/05/19/java-ast/blogImg/java-ast/java-ast-pic1.png" alt="图1"></p>
+<p><img src="/assets/blogImg/java-ast/java-ast-pic1.png" alt="图1"></p>
 <p>JCTree 类中提供了 <code>accept()</code> 方法来范围语法树中的所有语法节点。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public abstract void accept(JCTree.Visitor var1);</span><br></pre></td></tr></table></figure>
 
@@ -488,11 +488,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,11 +508,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo blog</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo blog</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
